@@ -1,11 +1,13 @@
+
+
 import nltk
 nltk.download('punkt')
 
 # Read the text files
-with open('book1.txt', 'r', encoding='utf-8') as file:
+with open('Political Economy.py', 'r', encoding='utf-8') as file:
     book1_text = file.read()
 
-with open('book2.txt', 'r', encoding='utf-8') as file:
+with open('Spenser's Faerie Queene.py', 'r', encoding='utf-8') as file:
     book2_text = file.read()
 
 # Tokenize the text and create a set of unique words for each book
