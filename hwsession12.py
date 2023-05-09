@@ -1,44 +1,42 @@
-
-
 import nltk
-nltk.download('punkt')
+from nltk.corpus import stopwords
 
-# Read the text files
-with open('Political Economy.py', 'r', encoding='utf-8') as file:
-    book1_text = file.read()
+# Load and preprocess the text files
+book1 = open('book1.txt', 'r').read()
+book2 = open('book2.txt', 'r').read()
 
-with open('Spenser's Faerie Queene.py', 'r', encoding='utf-8') as file:
-    book2_text = file.read()
+stop_words = set(stopwords.words('english'))
 
-# Tokenize the text and create a set of unique words for each book
-book1_words = set(nltk.word_tokenize(book1_text))
-book2_words = set(nltk.word_tokenize(book2_text))
+# Remove unwanted characters and stopwords
+book1_tokens = nltk.word_tokenize(book1.lower())
+book1_tokens = [word for word in book1_tokens if word.isalpha() and word not in stop_words]
 
-# Count the total number of words in each book
-book1_total_words = len(nltk.word_tokenize(book1_text))
-book2_total_words = len(nltk.word_tokenize(book2_text))
+book2_tokens = nltk.word_tokenize(book2.lower())
+book2_tokens = [word for word in book2_tokens if word.isalpha() and word not in stop_words]
 
-# Calculate the number of unique words in each book
-book1_unique_words = len(book1_words)
-book2_unique_words = len(book2_words)
+# Calculate unique word count
+book1_unique_words = set(book1_tokens)
+book2_unique_words = set(book2_tokens)
 
-# Calculate the ratio of unique words to total words for each book
-book1_ratio = book1_unique_words / book1_total_words
-book2_ratio = book2_unique_words / book2_total_words
+num_unique_words_book1 = len(book1_unique_words)
+num_unique_words_book2 = len(book2_unique_words)
 
-# Print the results
-print('Book 1 unique words:', book1_unique_words)
-print('Book 2 unique words:', book2_unique_words)
+# Calculate total word count
+num_words_book1 = len(book1_tokens)
+num_words_book2 = len(book2_tokens)
 
-if book1_unique_words > book2_unique_words:
-    print('Book 1 has more unique words')
+# Calculate unique to total word ratio
+unique_to_total_ratio_book1 = num_unique_words_book1 / num_words_book1
+unique_to_total_ratio_book2 = num_unique_words_book2 / num_words_book2
+
+# Compare the results
+if num_unique_words_book1 > num_unique_words_book2:
+    print("Book 1 has more unique words")
 else:
-    print('Book 2 has more unique words')
+    print("Book 2 has more unique words")
 
-print('Book 1 unique to total ratio:', book1_ratio)
-print('Book 2 unique to total ratio:', book2_ratio)
-
-if book1_ratio > book2_ratio:
-    print('Book 1 has a higher unique to total ratio')
+if unique_to_total_ratio_book1 > unique_to_total_ratio_book2:
+    print("Book 1 has a higher ratio of unique to total words")
 else:
-    print('Book 2 has a higher unique to total ratio')
+    print("Book 2 has a higher ratio of unique to total words")
+
